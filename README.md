@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <a href="https://your-live-site-link.com" target="_blank">
+  <a href="https://entomika.github.io/entomika/" target="_blank">
     <img src="https://img.shields.io/badge/Live%20Site-Portfolio-8F355C?style=for-the-badge" alt="Live Site">
   </a>
   <img src="https://img.shields.io/badge/Focus-Entomology-1F5B4B?style=for-the-badge" alt="Focus">
