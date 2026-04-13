@@ -1,0 +1,44 @@
+document.addEventListener('DOMContentLoaded', () => {
+  const sidebar = document.querySelector('.sidebar');
+  const hamburger = document.querySelector('.hamburger');
+  const navLinks = [...document.querySelectorAll('.nav-link')];
+  const sections = [...document.querySelectorAll('.content-section')];
+
+  hamburger.addEventListener('click', () => sidebar.classList.toggle('open'));
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const targetId = link.getAttribute('href').slice(1);
+      const target = document.getElementById(targetId);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      sidebar.classList.remove('open');
+    });
+  });
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      navLinks.forEach(link => link.classList.remove('active'));
+      const activeLink = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+      if (activeLink) activeLink.classList.add('active');
+    });
+  }, { root: null, rootMargin: '-25% 0px -60% 0px', threshold: 0 });
+
+  sections.forEach(section => observer.observe(section));
+
+  const slides = [...document.querySelectorAll('.slide')];
+  const prev = document.querySelector('[data-prev]');
+  const next = document.querySelector('[data-next]');
+  let index = slides.findIndex(s => s.classList.contains('active'));
+  if (index < 0) index = 0;
+
+  const show = i => {
+    slides[index].classList.remove('active');
+    index = (i + slides.length) % slides.length;
+    slides[index].classList.add('active');
+  };
+
+  prev?.addEventListener('click', () => show(index - 1));
+  next?.addEventListener('click', () => show(index + 1));
+});
